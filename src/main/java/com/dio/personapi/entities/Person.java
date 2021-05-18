@@ -1,7 +1,13 @@
 package com.dio.personapi.entities;
 
-import java.time.LocalDate;
+import lombok.Data;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+
+
+@Data
 public class Person {
 
     private Long id;
@@ -12,6 +18,7 @@ public class Person {
 
     private LocalDate birthDate;
 
+    private String cpf;
 
-
+    private List<Phone> phones = new ArrayList<>();
 }
