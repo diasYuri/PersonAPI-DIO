@@ -5,12 +5,14 @@ import com.dio.personapi.dto.request.PersonDTO;
 import com.dio.personapi.entities.Person;
 import com.sun.el.stream.Stream;
 import org.modelmapper.ModelMapper;
+import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.Mapping;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+@Component
 public class PersonMapper {
-
 
     private ModelMapper modelMapper = new ModelMapper();
 
