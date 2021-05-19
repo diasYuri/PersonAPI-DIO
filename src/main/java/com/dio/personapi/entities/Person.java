@@ -1,6 +1,9 @@
 package com.dio.personapi.entities;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import net.bytebuddy.dynamic.loading.InjectionClassLoader;
 
 import javax.persistence.*;
@@ -8,8 +11,11 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-
+@Entity
 @Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class Person {
 
     @Id
