@@ -24,6 +24,13 @@ public class PersonMapper {
         return p;
     }
 
+    public PersonDTO toDto(Person person){
+
+        PersonDTO dto = modelMapper.map(person, PersonDTO.class);
+
+        return dto;
+    }
+
     private LocalDate convertDate(String date){
         DateTimeFormatter form = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         LocalDate dateConverted = LocalDate.parse(date, form);
