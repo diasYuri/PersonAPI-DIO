@@ -8,6 +8,8 @@ import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 @AllArgsConstructor(onConstructor = @__(@Autowired))
 public class PersonService {
@@ -23,5 +25,14 @@ public class PersonService {
         personRepository.save(newPerson);
 
         return "Tudo certo";
+    }
+
+    public boolean alreadyExist(PersonDTO dto){
+        Optional<Person> person = personRepository.findByCpf(dto.getCpf());
+
+        if(person.isPresent()){
+            return true;
+        }
+        return false;
     }
 }
