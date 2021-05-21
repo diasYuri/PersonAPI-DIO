@@ -2,6 +2,7 @@ package com.dio.personapi.services;
 
 import com.dio.personapi.dto.mapper.PersonMapper;
 import com.dio.personapi.dto.request.PersonDTO;
+import com.dio.personapi.dto.response.MessageResponse;
 import com.dio.personapi.entities.Person;
 import com.dio.personapi.exceptions.AlreadyExistsException;
 import com.dio.personapi.exceptions.NoExistsException;
@@ -22,17 +23,15 @@ public class PersonService {
     PersonMapper mapper;
 
 
-    public String save(PersonDTO dto) throws Exception {
-
+    public MessageResponse save(PersonDTO dto) throws AlreadyExistsException {
         if(alreadyExist(dto)){
             throw new AlreadyExistsException();
         }
 
         Person newPerson = mapper.toModel(dto);
-
         personRepository.save(newPerson);
 
-        return "Tudo certo";
+        return createMessageResponse("Person successfully created");
     }
 
     public boolean alreadyExist(PersonDTO dto){
@@ -61,4 +60,30 @@ public class PersonService {
 
         return mapper.toDto(person.get());
     }
+
+    public MessageResponse update(Long id, PersonDTO dto) throws NoExistsException {
+        personRepository.findById(id).orElseThrow(() -> new NoExistsException(id));
+
+        Person person = mapper.toModel(dto);
+
+        personRepository.save(person);
+
+        return createMessageResponse("Person successfully updated");
+    }
+
+    public MessageResponse delete(Long id) throws NoExistsException{
+        personRepository.findById(id).orElseThrow(() -> new NoExistsException(id));
+
+        personRepository.deleteById(id);
+
+
+        return createMessageResponse("Person successfully deleted");
+    }
+
+    private MessageResponse createMessageResponse(String s) {
+        return MessageResponse.builder()
+                .message(s)
+                .build();
+    }
+
 }
